@@ -1,10 +1,10 @@
-# Screenshots and Documentation
+Documentation
 
-This directory contains screenshots and visual documentation for the ResolveIt Complaint Management System project.
+This directory contains visual documentation for the ResolveIt Complaint Management System project.
 
 ## Contents
 
-### Application GUI Screenshots
+### Application GUI 
 - **Login Screen** - Shows the authentication interface with role selection (Admin, Agent, Student)
 - **Admin Dashboard** - Administrative dashboard with analytics and complaint statistics
 - **Agent Queue** - Support agent view showing assigned complaints
