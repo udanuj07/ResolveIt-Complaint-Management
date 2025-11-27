@@ -29,12 +29,6 @@ This directory contains visual documentation for the ResolveIt Complaint Managem
 - Feedback management
 - Priority and category-based organization
 
-## How to Use These Screenshots
-
-1. **For Understanding the UI**: Review screenshots to understand the application layout and workflow
-2. **For Development**: Reference these screenshots during feature development
-3. **For Documentation**: Include these in project presentations and reports
-4. **For Testing**: Compare actual UI with these reference screenshots during testing
 
 ## Technologies Used (As Shown)
 
@@ -75,7 +69,7 @@ This directory contains visual documentation for the ResolveIt Complaint Managem
 
 ## Notes
 
-- All screenshots are from the fully functional ResolveIt application
+- All data are from the fully functional ResolveIt application
 - Database structure is optimized for MySQL 5.7+
 - UI uses consistent color scheme (Cyan #00FFFF on Dark #000000)
 - Font used: Poppins (can be substituted with default system fonts)
