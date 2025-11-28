@@ -1,94 +1,76 @@
--- ResolveIt Complaint Management System Database Schema
--- Created for GenZ University
-
-CREATE DATABASE IF NOT EXISTS resolveit;
-USE resolveit;
-
--- Users Table
-CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    password VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    role ENUM('ADMIN', 'AGENT', 'STUDENT') NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- Table 1: USER
+CREATE TABLE IF NOT EXISTS USER (
+    username VARCHAR(50) PRIMARY KEY, 
+    salt VARCHAR(50) NOT NULL,
+    passwordHash VARCHAR(100) NOT NULL,
+    email VARCHAR(100),
+    role VARCHAR(10) NOT NULL
 );
 
--- Agents Table
-CREATE TABLE agents (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    agent_id VARCHAR(20) UNIQUE NOT NULL,
+-- Table 2: AGENT
+CREATE TABLE IF NOT EXISTS AGENT (
+    id VARCHAR(10) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    role VARCHAR(50) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    email VARCHAR(100),
+    role VARCHAR(10) NOT NULL
 );
 
--- Complaints Table
-CREATE TABLE complaints (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    complaint_id VARCHAR(50) UNIQUE NOT NULL,
+-- Table 3: COMPLAINT
+CREATE TABLE IF NOT EXISTS COMPLAINT (
+    id VARCHAR(20) PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    reporter VARCHAR(100) NOT NULL,
-    assigned_to VARCHAR(100),
-    category VARCHAR(50),
-    priority VARCHAR(20),
-    status ENUM('Open', 'In Progress', 'Resolved', 'Closed') DEFAULT 'Open',
-    details LONGTEXT,
-    created_at DATETIME,
-    resolved_at DATETIME,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    INDEX(complaint_id),
-    INDEX(reporter),
-    INDEX(status)
+    reporter VARCHAR(50),
+    assignedTo VARCHAR(100),
+    category VARCHAR(50) NOT NULL,
+    priority VARCHAR(10) NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    createdAt VARCHAR(30) NOT NULL,
+    resolvedAt VARCHAR(30),
+    details TEXT,
+    
+    FOREIGN KEY (reporter) REFERENCES USER(username)
 );
 
--- Feedback Table
-CREATE TABLE feedback (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    feedback_id VARCHAR(50) UNIQUE NOT NULL,
-    complaint_id VARCHAR(50) NOT NULL,
-    author VARCHAR(100) NOT NULL,
-    comment LONGTEXT,
-    date DATETIME,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (complaint_id) REFERENCES complaints(complaint_id) ON DELETE CASCADE,
-    INDEX(complaint_id)
+-- Table 4: FEEDBACK
+CREATE TABLE IF NOT EXISTS FEEDBACK (
+    id VARCHAR(20) PRIMARY KEY,
+    complaintId VARCHAR(20) NOT NULL,
+    author VARCHAR(50),
+    date VARCHAR(30) NOT NULL,
+    comment VARCHAR(500),
+    rating INT NOT NULL,
+    
+    FOREIGN KEY (complaintId) REFERENCES COMPLAINT(id)
 );
 
--- Attachments Table
-CREATE TABLE attachments (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    complaint_id VARCHAR(50) NOT NULL,
-    filename VARCHAR(255) NOT NULL,
-    file_data LONGBLOB,
-    file_size BIGINT,
-    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (complaint_id) REFERENCES complaints(complaint_id) ON DELETE CASCADE,
-    INDEX(complaint_id)
+-- Table 5: HISTORY
+CREATE TABLE IF NOT EXISTS HISTORY (
+    entry_id INT AUTO_INCREMENT PRIMARY KEY,
+    complaintId VARCHAR(20) NOT NULL,
+    time VARCHAR(30) NOT NULL,
+    action VARCHAR(50) NOT NULL,
+    actor VARCHAR(50) NOT NULL,
+    note VARCHAR(255),
+    
+    FOREIGN KEY (complaintId) REFERENCES COMPLAINT(id)
 );
 
--- Initial Data - Sample Users
-INSERT INTO users (username, password, email, role) VALUES
-('admin', '123', 'admin@uni.edu', 'ADMIN'),
-('agent', '123', 'agent@uni.edu', 'AGENT'),
-('student', '123', 'student@uni.edu', 'STUDENT');
+-- Table 6: ATTACHMENT
+CREATE TABLE IF NOT EXISTS ATTACHMENT (
+    attach_id INT AUTO_INCREMENT PRIMARY KEY,
+    complaintId VARCHAR(20) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    data LONGBLOB NOT NULL,
+    
+    FOREIGN KEY (complaintId) REFERENCES COMPLAINT(id)
+);
 
--- Initial Data - Sample Agents
-INSERT INTO agents (agent_id, name, email, role) VALUES
-('AG01', 'Neha Sharma', 'neha@uni.edu', 'Support'),
-('AG02', 'Rakesh Rao', 'rakesh@uni.edu', 'Senior');
+-- Table 7: CATEGORY_LOOKUP
+CREATE TABLE IF NOT EXISTS CATEGORY_LOOKUP (
+    name VARCHAR(50) PRIMARY KEY
+);
 
--- Initial Data - Sample Complaint
-INSERT INTO complaints (complaint_id, title, reporter, assigned_to, category, priority, status, details, created_at, resolved_at) VALUES
-('C123456A', 'Sample login issue', 'student', 'Unassigned', 'Authentication', 'Medium', 'Open', 'Sample complaint for testing', NOW(), NULL);
-
--- Create Indexes for Better Performance
-CREATE INDEX idx_user_role ON users(role);
-CREATE INDEX idx_complaint_status ON complaints(status);
-CREATE INDEX idx_complaint_category ON complaints(category);
-CREATE INDEX idx_feedback_complaint ON feedback(complaint_id);
-
--- Grants (if needed)
--- GRANT ALL PRIVILEGES ON resolveit.* TO 'resolveit_user'@'localhost' IDENTIFIED BY 'password';
--- FLUSH PRIVILEGES;
+-- Table 8: PRIORITY_LOOKUP
+CREATE TABLE IF NOT EXISTS PRIORITY_LOOKUP (
+    name VARCHAR(10) PRIMARY KEY
+);
