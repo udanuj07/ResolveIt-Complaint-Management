@@ -308,33 +308,12 @@ Administrators can export all complaints to CSV format with fields:
 - Transaction management
 - Prepared statements
 
-## 🤝 Contributing
-
-To contribute to this project:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/improvement`)
-3. Commit your changes (`git commit -am 'Add improvement'`)
-4. Push to the branch (`git push origin feature/improvement`)
-5. Create a Pull Request
-
-## 📄 License
-
-This project is open source and available under the MIT License.
-
 ## 👨‍💻 Authors
 
-**Udanuj Singh**
+**Anuj Singh**
 - GitHub: [@udanuj07](https://github.com/udanuj07)
 - Team QuanTuMedge (Team members: Anuj Singh, Tousif Hussain, Ankit Kushwah)
 
-## 📧 Support
-
-For issues and questions, please open an issue on GitHub or contact the development team.
-
-## 🎓 Educational Use
-
-This project is developed as part of the BCA AI/ML program at Galgotia University and is intended for GUVI/HCL evaluation.
 
 ### Evaluation Against GUVI Rubric
 
@@ -378,9 +357,3 @@ This project is developed as part of the BCA AI/ML program at Galgotia Universit
 - Dark/Light theme support
 - Real-time notifications
 - Timeline history tracking
-
----
-
-**Last Updated**: November 2025
-**Project Version**: 1.0
-**Status**: Ready for GUVI Evaluation
