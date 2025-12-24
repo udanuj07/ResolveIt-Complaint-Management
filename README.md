@@ -360,16 +360,15 @@ A web-based module built with Apache Tomcat 10.1 and Jakarta Servlets for compla
 
 ### Setup:
 1. Create a Dynamic Web Project in Eclipse with Tomcat 10.1 runtime
-2. Run `database/servlet_schema.sql` to create the complaints table4. Deploy servlet classes to `src/resolveit/` package
+2. Run `database/servlet_schema.sql` to create the complaints table
 3. Place MySQL Connector/J JAR in `WEB-INF/lib`
 4. Deploy servlet classes to `src/resolveit/` package
 5. Access via `http://localhost:8080/ProjectName/complaint`
-### Stack:
+
 - **Server**: Apache Tomcat 10.1
 - **API**: Jakarta Servlet 6.0 (jakarta.servlet.*)
 - **Database**: MySQL with JDBC
 - **Frontend**: Dynamically generated HTML (no JSP)
-
 **Code Quality & Testing (10/10)**
 - Well-organized code structure
 - Proper exception handling
